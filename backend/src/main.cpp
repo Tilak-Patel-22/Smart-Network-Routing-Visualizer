@@ -723,8 +723,8 @@ int main() {
     }
   });
 
-  const char *port_env = std::getenv("ROUTING_PORT");
-  int port = 8787;
+  const char *port_env = std::getenv("PORT");
+  int port = 8080;
   if (port_env) {
     try {
       port = std::atoi(port_env);
@@ -732,13 +732,13 @@ int main() {
     }
   }
   if (port <= 0 || port > 65535)
-    port = 8787;
+    port = 8080;
 
-  std::printf("Smart Network Routing backend listening on http://127.0.0.1:%d\n",
-              port);
-  if (!svr.listen("127.0.0.1", port)) {
-    std::fprintf(stderr, "Failed to bind port %d\n", port);
-    return 1;
-  }
-  return 0;
+  std::printf("Smart Network Routing backend listening on port %d\n", port);
+
+if (!svr.listen("0.0.0.0", port)) {
+  std::fprintf(stderr, "Failed to bind port %d\n", port);
+  return 1;
 }
+
+return 0;
